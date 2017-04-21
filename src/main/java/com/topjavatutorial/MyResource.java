@@ -13,8 +13,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.topjavatutorial.dao.Employee;
 import com.topjavatutorial.dao.EmployeeDAO;
+import com.topjavatutorial.dao.JacksonFilter;
 
 @Path("/employees")
 public class MyResource {
@@ -41,13 +44,36 @@ public class MyResource {
 
 	@GET
 	@Produces("application/json")
-	public List<Employee> getEmployee() {
+	public Response getEmployee() {
 		EmployeeDAO dao = new EmployeeDAO();
 		List<Employee> employees = dao.getEmployees();
 		for (Employee employee : employees) {
 			System.out.println("employees: " + employee.getName() + " " + employee.getAge());
 		}
-		return employees;
+
+		
+		BaseEntity<List<Employee>> entity = new BaseEntity<List<Employee>>();
+		entity.setCode("200");
+		entity.setMsg("ok");
+		entity.setData(employees);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		JacksonFilter jacksonFilter = new JacksonFilter();
+	 
+	    // 过滤除了 id,title 以外的所有字段，也就是序列化的时候，只包含 id 和 title
+//	    jacksonFilter.include(Employee.class, "id","name","age");
+	    jacksonFilter.filter(Employee.class, "id");
+	    mapper.setFilterProvider(jacksonFilter);  // 设置过滤器
+	    mapper.addMixIn(Employee.class, jacksonFilter.getClass()); // 为Article.class类应用过滤器
+	    String result = "";
+	    try {
+			result = mapper.writeValueAsString(entity);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		return Response.ok(result, MediaType.APPLICATION_JSON).build();
+
 	}
 
 	@POST
