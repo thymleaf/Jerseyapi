@@ -1,11 +1,5 @@
 package com.topjavatutorial.dao;
-//
-//import javax.json.Json;
-//import javax.json.JsonObject;
-//import javax.json.JsonObjectBuilder;
-//
-//import com.topjavatutorial.BaseEntity;
-//
+
 public class JsonUtil {
 //
 //	public static JsonObjectBuilder createObjectBuilder()

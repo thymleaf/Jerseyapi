@@ -60,11 +60,11 @@ public class MyResource {
 		ObjectMapper mapper = new ObjectMapper();
 		JacksonFilter jacksonFilter = new JacksonFilter();
 	 
-	    // ¹ıÂË³ıÁË id,title ÒÔÍâµÄËùÓĞ×Ö¶Î£¬Ò²¾ÍÊÇĞòÁĞ»¯µÄÊ±ºò£¬Ö»°üº¬ id ºÍ title
+	    // ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ id,title ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶Î£ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ»ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ id ï¿½ï¿½ title
 //	    jacksonFilter.include(Employee.class, "id","name","age");
 	    jacksonFilter.filter(Employee.class, "id");
-	    mapper.setFilterProvider(jacksonFilter);  // ÉèÖÃ¹ıÂËÆ÷
-	    mapper.addMixIn(Employee.class, jacksonFilter.getClass()); // ÎªArticle.classÀàÓ¦ÓÃ¹ıÂËÆ÷
+	    mapper.setFilterProvider(jacksonFilter);  // ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½
+	    mapper.addMixIn(Employee.class, jacksonFilter.getClass()); // ÎªArticle.classï¿½ï¿½Ó¦ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	    String result = "";
 	    try {
 			result = mapper.writeValueAsString(entity);
