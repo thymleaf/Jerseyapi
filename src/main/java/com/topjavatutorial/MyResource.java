@@ -60,7 +60,6 @@ public class MyResource {
 		ObjectMapper mapper = new ObjectMapper();
 		JacksonFilter jacksonFilter = new JacksonFilter();
 	 
-	    // ���˳��� id,title ����������ֶΣ�Ҳ�������л���ʱ��ֻ���� id �� title
 //	    jacksonFilter.include(Employee.class, "id","name","age");
 	    jacksonFilter.filter(Employee.class, "id");
 	    mapper.setFilterProvider(jacksonFilter);  // ���ù�����

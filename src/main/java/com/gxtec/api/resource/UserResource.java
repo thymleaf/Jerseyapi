@@ -1,43 +1,40 @@
-package com.topjavatutorial;
+package com.gxtec.api.resource;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
+import java.util.List;
+
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gxtec.api.util.StringUtil;
+import com.gxtec.api.bean.BaseResult;
+import com.gxtec.api.bean.User;
+import com.gxtec.api.dao.UserDAO;
+import com.gxtec.api.util.HttpCode;
 import com.topjavatutorial.dao.JacksonFilter;
 
-@Path("/user")
+@Path("/users")
 public class UserResource {
-	
-	
-	@POST
-	@Path("/login")
-	@Consumes("application/x-www-form-urlencoded")
-	public Response login(@FormParam("username") String username, @FormParam("password") String password)
+
+	@GET
+	@Produces("application/json")
+	public Response getUsers()
 	{
-		BaseEntity<User> entity = new BaseEntity<>();
-		if(StringUtil.isEmpty(username) || StringUtil.isEmpty(password))
+		UserDAO dao = new UserDAO();
+		List<User> users = dao.getUsers();
+		
+		BaseResult<List<User>> entity = new BaseResult<>();
+		
+		if(users == null || users.size() == 0)
 		{
-			entity.setCode("201");
-			entity.setMsg("用户名或密码不正确");
-			
-			return Response.ok(entity, MediaType.APPLICATION_JSON).build();
+			entity.setCode(HttpCode.UNAUTHORIZED);
+			entity.setMsg("找不到用户");
 		}
 		
-		
-		entity.setCode("200");
-		entity.setMsg("OK");
-		User user = new User();
-		user.setUsername("Tome");
-		user.setPassword("admin");
-		user.setNickName("tomcat");
-		entity.setData(user);
+		entity.setData(users);
 		
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -54,8 +51,6 @@ public class UserResource {
 			e.printStackTrace();
 		}
 		
-		
 		return Response.ok(result, MediaType.APPLICATION_JSON).build();
 	}
-
 }

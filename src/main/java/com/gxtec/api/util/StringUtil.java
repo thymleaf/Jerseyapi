@@ -1,4 +1,4 @@
-package com.topjavatutorial.dao;
+package com.gxtec.api.util;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
