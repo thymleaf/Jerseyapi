@@ -8,7 +8,7 @@ public class HttpCode {
 	public static final int OK = 200;
 
 	/**
-	 * 没有新文档
+	 * 没有请求资源
 	 */
 	public static final int NO_CONTENT = 204;
 

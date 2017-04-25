@@ -28,7 +28,7 @@ public class UserDAO {
 				"password=:password")
 				.setParameter("name", name)
 				.setParameter("password", password);
-		System.out.println(query.getQueryString());
+//		System.out.println(query.getQueryString());
 		User user = query.uniqueResult();
 		session.close();
 		return user;

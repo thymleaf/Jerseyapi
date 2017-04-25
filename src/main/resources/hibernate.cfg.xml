@@ -13,5 +13,6 @@
 		<!-- <property name="hibernate.hbm2ddl.auto">create</property> -->
 		<mapping class="com.topjavatutorial.dao.Employee" />
 		<mapping class="com.gxtec.api.bean.User" />
+		<mapping class="com.gxtec.api.bean.Message" />
 	</session-factory>
 </hibernate-configuration>
