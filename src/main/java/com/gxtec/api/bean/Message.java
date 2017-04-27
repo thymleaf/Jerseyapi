@@ -22,6 +22,8 @@ public class Message {
 	private String content;
 	@Column(name = "status")
 	private String status;
+	@Column(name = "priority")
+	private String priority;
 	@Column(name = "file_name")
 	private String fileName;
 	@Column(name = "file_id")
@@ -131,4 +133,13 @@ public class Message {
 		this.msgId = msgId;
 	}
 
+	public String getPriority() {
+		return priority;
+	}
+
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
+	
 }
