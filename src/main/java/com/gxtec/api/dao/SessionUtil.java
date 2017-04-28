@@ -24,6 +24,14 @@ public class SessionUtil {
     			.build();
     	try {
     		sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+    		if(sessionFactory == null)
+    		{
+    			System.out.println("sessionFactory is null...");
+    		}
+    		else
+    		{
+    			System.out.println("sessionFactory is not null...");
+    		}
     	}
     	catch (Exception e) {
     		// The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
